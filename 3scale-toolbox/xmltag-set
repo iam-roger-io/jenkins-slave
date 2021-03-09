@@ -1,0 +1,23 @@
+#!/bin/bash
+
+while getopts v:t: flag
+
+do
+        case "${flag}" in
+
+                t) TAG=${OPTARG}
+                
+                        ;;
+                v) VALUE=${OPTARG}                
+
+                        ;;
+                *) exit 0;
+                ;;
+        esac
+done
+
+echo $TAG
+echo $VALUE
+
+sed "s/<$TAG>.*<\/$TAG>/<$TAG>$VALUE<\/$TAG>/" 3scale.yml  > 3scale.tmp
+mv ./3scale.tmp ./3scale.yml
